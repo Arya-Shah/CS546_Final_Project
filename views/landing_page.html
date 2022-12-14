@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">
+        function toggle(){
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+    </script>
+    <title>landing Page</title>
+</head>
+
+<body>
+    <main>
+        <div id="sidebar" onclick="toggle()">
+            <div class="toggle-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul>
+                <li><a href="#"><span class="logo_name">Schedule</span></a></li><br>
+                <li><a href="#"><span class="logo_name">Earning</span></a></li><br>
+                <li><a href="#"><span class="logo_name">Appointment</span></a></li><br>
+                <li><a href="#"><span class="logo_name">Inventory</span></a></li><br>
+            </ul>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="box"><a href="#">IA</a></div>
+            <div class="box"><a href="#">Inprogress Appointment</a></div>
+            <div class="box"><a href="#">Inprogress Appointment</a></div>
+            <div class="box"><a href="#">Inprogress Appointment</a></div>
+        </div>
+
+        
+    </main>
+</body>
+
+</html>
