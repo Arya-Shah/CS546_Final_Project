@@ -69,3 +69,9 @@ html,body,.container {
 .small_margin_bot {
     margin-bottom: 10px;
 }
+
+.appt-box {
+    border-color: gray;
+    border-style: outset;
+    border-width: 2px;
+}

@@ -1,6 +1,6 @@
-const userRoutes = require("./user");
+const userRoutes = require("./users");
 const garageOwnerRoutes = require("./garageOwner");
-// const loginRoutes = require("./login");
+const path = require('path');
 
 const constructorMethod = (app) => {
     app.use("/users", userRoutes);
@@ -9,6 +9,9 @@ const constructorMethod = (app) => {
     app.get('/', (req, res) => {
         res.render('homepage', {'title': 'Homepage'})
     });
+    app.get('/login', (req, res) => {
+        res.sendFile(path.resolve('static/login.html'));
+    })
 
     app.use('*', (req, res) => {
         res.sendStatus(404);

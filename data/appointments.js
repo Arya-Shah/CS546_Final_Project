@@ -10,6 +10,14 @@ const { ObjectId } = require('mongodb');
 // - services
 // - total_price
 
+const getAllAppointments = async () => {
+  const appointmentCollection = await appointments();
+
+  const appointmentList = await appointmentCollection.find({}).toArray();
+  // console.log(appointmentList);
+  return appointmentList;
+}
+
 const createAppointment = async (
     user_id,
     garage_id,
@@ -81,6 +89,6 @@ const deleteAppointment = async (apptId) => {
   module.exports = {
     createAppointment,
     deleteAppointment,
-    
+    getAllAppointments,
   };
   

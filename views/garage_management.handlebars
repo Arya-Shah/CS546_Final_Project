@@ -42,6 +42,29 @@
                     Appointments
                 </h2>
             </div>
+            <div class="col-12">
+                {{#each appointments}}
+                    <div class="row py-3 px-2 my-1 appt-box">
+                        <div class="col-12">
+                            <div class="row">
+                                <span>
+                                    User: {{!-- TODO: ADD USER, query in backend to add a user_name field w/ search user by id function --}}
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    Appointment: {{this.date_time}} for the service: {{this.service}}.
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    Estimated Total Price: ${{this.total_price}}
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                {{/each}}
+            </div>
             <a href="/garage/create_appointment/"> Create Appointment +</a>
             {{!-- for appointment in appointments --}}
             {{!-- 
