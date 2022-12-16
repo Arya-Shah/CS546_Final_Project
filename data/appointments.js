@@ -60,8 +60,27 @@ const createAppointment = async (
       const appointment = await newId.toString();
       return appointment;
 };
+
+const deleteAppointment = async (apptId) => {
+    if (!apptId) throw 'You must provide an id to search for';
+    if (typeof(apptId) != 'string') throw 'Id must be a string.';
+    if (apptId.trim().length == 0) throw "Id must not be empty string";
+  
+    if (!ObjectId.isValid(apptId)) throw "Id is not a valid ObjectId";
+    
+    const idPass = ObjectId(apptId);
+  
+    const appointmentCollection = await appointments();
+    const deletionInfo = await appointmentCollection.deleteOne({_id: idPass});
+    if (deletionInfo.deletedCount === 0) {
+      throw `Could not delete movie with id of ${movieId}`;
+    }
+    return `Successful deletion of appointment`
+  };
   
   module.exports = {
     createAppointment,
+    deleteAppointment,
+    
   };
   

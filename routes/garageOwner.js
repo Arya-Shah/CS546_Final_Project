@@ -1,5 +1,5 @@
 const express = require('express');
-const { createAppointment } = require('../data/appointments');
+const { createAppointment, deleteAppointment } = require('../data/appointments');
 const router = express.Router();
 
 router
@@ -26,8 +26,9 @@ router
     try {
         console.log(req.body)
         let spaghetti = await createAppointment("123456", "432156", req.body.dateTimeInput, req.body.serviceInput, 3.21);
-        console.log("A");
         console.log(spaghetti);
+        // let spaghetti = await deleteAppointment('639c1a9142613d44a5a0633c');
+        // console.log(spaghetti);
     }
     catch (e) {
         console.log(e);
