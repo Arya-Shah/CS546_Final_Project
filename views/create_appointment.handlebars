@@ -1,0 +1,59 @@
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        {{!-- begin sidebar --}}
+        <div id="site_sidebar" class="col-2">
+            <div id="sidebar_title_row" class="row">
+                <span id="sidebar_title"> Sidebar Title </span>
+            </div>
+            {{!-- begin sidebar links --}}
+            <div class="row sidebar_link_row">
+                <a class="sidebar_link_btn active" href="/example_page/" > Example Page </a>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Example Btn </span>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Example Btn </span>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Example Btn </span>
+            </div>
+            {{!-- end sidebar links --}}
+        </div>
+        {{!-- end sidebar --}}
+
+        {{!-- begin page content --}}
+        <div id="site_content" class="col-10 no-float">
+            <h2>Create appointment here.</h2>
+
+            <form id="create-appointment-form" method="POST" action="/garage/create_appointment">
+                <label for="dateTimeInput">Date/Time</label>
+                <input type="datetime-local" id="dateTimeInput" name="dateTimeInput"><br>
+                
+                <label for="serviceInput">Date/Time</label>
+                <select name="serviceInput" id="serviceInput">
+                    {{!-- TODO: Make this load available services based on garage --}}
+                    <option value="Oil Change">
+                        Oil Change
+                    </option>
+                    <option value="Engine Change">
+                        Engine Change
+                    </option>
+                </select><br>
+                <div class="small_margin_bot">
+                    {{!-- TODO: Add total price from service value of garage --}}
+                    <span>
+                        Price:
+                    </span><br>
+                </div>
+                
+                <button type="submit">
+                    Submit
+                </button>
+            </form>
+
+        </div>
+        {{!-- end page content --}}
+    </div>
+</div>

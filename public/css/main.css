@@ -65,3 +65,7 @@ html,body,.container {
 .active {
     font-weight:700;
 }
+
+.small_margin_bot {
+    margin-bottom: 10px;
+}
