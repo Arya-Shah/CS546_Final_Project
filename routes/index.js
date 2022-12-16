@@ -1,11 +1,11 @@
-const userRoutes = require("./user");
+const userRoutes = require("./users");
 const garageOwnerRoutes = require("./garageOwner");
-const loginRoutes = require("./login");
+// const loginRoutes = require("./login");
 
 const constructorMethod = app => {
-    app.use("/user", userRoutes);
+    app.use("/users", userRoutes);
     app.use("/garage", garageOwnerRoutes);
-    app.use("/login", loginRoutes);
+    // app.use("/login", loginRoutes);
 
     // app.get('/', (req, res) => {
     //     res.redirect('http://localhost:3000/login');
