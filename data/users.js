@@ -91,12 +91,19 @@ const setFavorite = async(_id,favorite_) =>{
     }catch(e){
         console.log(`Error favorit:${e}`);
     }
-
 }
+
+const searchGarage = async (searchGarageName) => {
+    const garage = await axios.get();
+    let res = garage.data.filter(x => `${x.garageName}`.toUpperCase().includes(searchGarageName.toUpperCase())).slice(0,20);
+    res = {name:res.map(x => `${x.garageName}`),id: res.map(x =>x.id)}
+    return res;
+};
 
 module.exports = {
     createUser,
     checkUser,
     favoriteOfUser,
-    getHistory
+    getHistory,
+    searchGarage
 };
