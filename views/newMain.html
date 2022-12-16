@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mygarage - Vehicle Maintenance & Repair Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Style the body */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        /* Header/logo Title */
+        .header {
+            padding: 3px;
+            text-align: left;
+            background-image: url("./images/garage.PNG");
+            /*background:#ff43a4 ;*/
+            color: #02254d;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background-color: #020067;
+        }
+
+        /* Increase the font size of the heading */
+        .header h1 {
+            font-size: 40px;
+        }
+
+        /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
+        }
+
+        /* Style the navigation bar links */
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .w3-content w3-section{
+            background-color: #0e7699;
+        }
+
+        /* Right-aligned link */
+        .navbar a.right {
+            float: right;
+        }
+
+        /* Change color on hover */
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Active/current link */
+        .navbar a.active {
+            background-color: #666;
+            color: white;
+        }
+
+        /* Column container */
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+        }
+
+        /* Create two unequal columns that sits next to each other */
+        /* Sidebar/left column */
+        .side {
+            -ms-flex: 20%;
+            /* IE10 */
+            flex: 20%;
+            background-color: #0e7699;
+            padding: 20px;
+            color: white;
+        }
+
+
+        /* Fake image, just for this example */
+        .fakeimg {
+            width: 100%;
+        }
+
+
+        /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 700px) {
+            .row {
+                flex-direction: column;
+            }
+        }
+
+        /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+        @media screen and (max-width: 400px) {
+            .navbar a {
+                float: none;
+                width: 100%;
+            }
+        }
+
+        /* adding slides*/
+        .mySlides {
+            -ms-flex: 80%;
+            /* IE10 */
+            flex: 80%;
+            display: none;
+        }
+
+
+
+
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #a841c6;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 20%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1> Mygarage </h1>
+        <h2> Vehicle Maintenance & Repair Website </h2>
+    </div>
+
+    <div class="navbar">
+        <a href="#" class="active">Home</a>
+        <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="right">Login</a>
+        <a onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="right">Sign Up</a>
+    </div>
+
+    <div id="id01" class="modal">
+
+        <form class="modal-content animate" action="C:\Users\Nilesh TIRODKAR\Desktop\studentcorner\first.html"
+            method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                    title="Close Modal">&times;</span>
+                <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit">Login</button>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                    class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="side">
+            <h1>
+                <font face="verdana">MyGarage</font>
+            </h1>
+            <h2>
+                <font face="verdana"> The most trusted websites to find reliable vehicle service center
+            </h2>
+            <p>Our application works with the motive of managing car maintenance, allowing users to find service centers
+                based on service offered and ratings.
+                Regular users are able to use our application to find the service centers that fit their needs, while
+                service center owners are able to advertise and manage the services that they offer.</p>
+            <h3>MyGarage Features</h3>
+            <p>1. User can search and schedule an appointment with the best vehicle service center in the locality. <br>
+                2. Ability to rate a garage and give reviews as well as choose favourites. <br>
+                3. Garage Owners can manage appointments and track progress and earnings.
+                </font>
+            </p>
+        </div>
+
+        <div class="w3-content w3-section" style="max-width:800px">
+            <img class="mySlides" src="./images/1.jpg" style="width:100%">
+            <img class="mySlides" src="./images/2.jpg" style="width:100%">
+            <img class="mySlides" src="./images/4.jpg" style="width:100%">
+            <img class="mySlides" src="./images/9.jpg" style="width:100%">
+            <img class="mySlides" src="./images/6.jpg" style="width:100%">
+            <img class="mySlides" src="./images/7.jpg" style="width:100%">
+        </div>
+    </div>
+
+    <div class="footer">
+        <font color=#dfb1ff>
+            <marquee>
+                <h3> ABOUT US &nbsp; &nbsp; &nbsp; &nbsp; CONTACT US &nbsp; &nbsp; &nbsp; &nbsp; FAQS</h3>
+            </marquee><br>
+            <h2>MyGarage LTD</h2>
+        </font>
+    </div>
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000); // Change image every 3 seconds
+        }
+
+
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
