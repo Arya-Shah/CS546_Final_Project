@@ -25,7 +25,7 @@ const createUser = async (
     if (!insertInfo.acknowledged || !insertInfo.insertedId)
         throw 'Could not add User';
     const newId = insertInfo.insertedId.toString();
-    const userID = getMovieById(newId);
+    const userID = await this.get(newId.toString());
     return userID;
 };
 
@@ -100,10 +100,39 @@ const searchGarage = async (searchGarageName) => {
     return res;
 };
 
+const schedule = async(_id,garageName) =>{
+    try{
+    const userCollection = await users(); 
+    const garageCollection = await garage() 
+    const userExist = await userCollection.findOne({ id: id_ });
+    const garageExist = await garageCollection.findOne({ name: garageName });
+    if (!garageExist) return { msg: "Either the username or password is invalid" }
+    if (!userExist) return { msg: "Either the userna`me or password is invalid" }
+    const time = new Date().toISOString()
+    const userName = userExist.name;
+        const createAppointment = {
+            garage_name: garageName,
+            user_name: userName,
+            time: time 
+        }
+    const insertInfo = await appointment.insertOne(createAppointment);
+    if (!insertInfo.acknowledged || !insertInfo.insertedId)
+        throw 'Could not add User';
+    const newId = insertInfo.insertedId.toString();
+    const userID = getMovieById(newId);
+    return userID;
+
+    
+    }catch(e){
+        console.log(`Error favorit:${e}`);
+    }
+}
+
 module.exports = {
     createUser,
     checkUser,
     favoriteOfUser,
     getHistory,
-    searchGarage
+    searchGarage,
+    schedule
 };
