@@ -6,6 +6,7 @@ const path = require('path');
 const constructorMethod = (app) => {
     app.use("/users", userRoutes);
     app.use("/garage", garageroutes);
+    
 
     app.get('/', (req, res) => {
         res.render('homepage', {'title': 'Homepage'})

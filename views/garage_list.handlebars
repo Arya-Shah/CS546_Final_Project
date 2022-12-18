@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="/public/css/main.css">
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        {{!-- begin sidebar --}}
+        <div id="site_sidebar" class="col-2">
+            <div id="sidebar_title_row" class="row">
+                <span id="sidebar_title"> Home </span>
+            </div>
+            {{!-- begin sidebar links --}}
+            <div class="row sidebar_link_row">
+                <a class="sidebar_link_btn"  >  Login or Sign Up </a>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" href="routes/garage"> Search from garages List </span>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Book Appointment </span>
+            </div>
+            {{!-- end sidebar links --}}
+        </div>
+        {{!-- end sidebar --}}
+
+        {{!-- begin page content --}}
+        <div id="site_content" class="col-10">
+            <h2>All Garages</h2>
+            {{#each garages}}
+                <div class="row py-3 px-2 my-1 appt-box">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <span>
+                                        Name: {{this.name}}
+                                    </span>
+                                </div>
+                                <div class="col-6">
+                                    <span>
+                                        Location: {{this.location}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>
+                                        Phone Number: {{this.phoneNumber}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>
+                                        Website: {{this.website}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+            {{/each}}
+        </div>
+        {{!-- end page content --}}
+    </div>
+</div>
+

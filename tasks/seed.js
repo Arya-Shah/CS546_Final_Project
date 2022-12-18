@@ -3,7 +3,8 @@ const data = require('../data/');
 const garages = data.garages;
 
 async function main() {
-    const db = await dbConnection();
+    console.log("started populating database");
+    const db = await dbConnection.dbConnection();
     await db.dropDatabase();
 
     // garages
@@ -34,7 +35,7 @@ async function main() {
 
     
     console.log('Done seeding database');
-    await db.serverConfig.close();
+    await dbConnection.closeConnection();
 }
 
 main();

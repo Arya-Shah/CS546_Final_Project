@@ -31,10 +31,6 @@ module.exports = {
 
     const garageList = await garageCollection.find({}).toArray();
 
-    garageList.forEach(element => {
-      element._id = element._id.toString();
-    });
-
     return garageList;
   },
 
@@ -91,7 +87,7 @@ module.exports = {
 
     const newId = insertInfo.insertedId;
 
-    const garage = await this.get(newId.toString());
+    const garage = await newId.toString();
     return garage;
   },
 
