@@ -75,3 +75,12 @@ html,body,.container {
     border-style: outset;
     border-width: 2px;
 }
+
+input{
+	text-align: center;
+}
+.mssg{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
