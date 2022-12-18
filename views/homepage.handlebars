@@ -1,22 +1,20 @@
+<link rel="stylesheet" href="/public/css/main.css">
 <div class="container-fluid h-100">
     <div class="row h-100">
         {{!-- begin sidebar --}}
         <div id="site_sidebar" class="col-2">
             <div id="sidebar_title_row" class="row">
-                <span id="sidebar_title"> Sidebar Title </span>
+                <span id="sidebar_title"> Home </span>
             </div>
             {{!-- begin sidebar links --}}
             <div class="row sidebar_link_row">
-                <a class="sidebar_link_btn" href="/example_page/" > Example Page </a>
+                <a class="sidebar_link_btn"  >  Login or Sign Up </a>
             </div>
             <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Example Btn </span>
+                <span class="sidebar_link_btn" href="routes/garage"> Search from garages List </span>
             </div>
             <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Example Btn </span>
-            </div>
-            <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Example Btn </span>
+                <span class="sidebar_link_btn" > Book Appointment </span>
             </div>
             {{!-- end sidebar links --}}
         </div>
@@ -24,8 +22,29 @@
 
         {{!-- begin page content --}}
         <div id="site_content" class="col-10">
-            <span>Here is some content for the main homepage. We will fill this in later with whatever we want to place here.</span>
+            <span>
+                <h1>
+                    <font face="verdana">MyGarage</font>
+                </h1>
+                <h2>
+                    <font face="verdana">The most trusted websites to find reliable vehicle service center
+                </h2>
+                <p>Our application works with the motive of managing car maintenance, allowing users to find service centers
+                based on service offered and ratings.
+                Regular users are able to use our application to find the service centers that fit their needs, while
+                service center owners are able to advertise and manage the services that they offer.</p>
+                <h3>
+                    MyGarage Features
+                    </h3>
+                <p>
+                    1. User can search and schedule an appointment with the best vehicle service center in the locality. <br>
+                    2. Ability to rate a garage and give reviews as well as choose favourites. <br>
+                    3. Garage Owners can manage appointments and track progress and earnings.
+                </font>
+                </p>
+            </span>
         </div>
         {{!-- end page content --}}
     </div>
 </div>
+

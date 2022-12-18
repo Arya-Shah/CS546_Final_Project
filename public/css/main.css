@@ -36,7 +36,7 @@
 
 html,body,.container {
     height:100%;
-    background-color: whitesmoke;
+    background-color: rgb(250, 227, 251);
 }
 
 .sidebar_link_btn {
@@ -55,7 +55,7 @@ html,body,.container {
 }
 
 .sidebar_link_btn:hover {
-    background-color: gray;
+    background-color: rgb(244, 158, 198);
 }
 
 .sidebar_link_row {
@@ -66,13 +66,6 @@ html,body,.container {
     font-weight:700;
 }
 
-body{
-	text-align: center !important;
-}
-p{
-	margin-top: 20px;
-	font-size: 30px;
-}
 input{
 	text-align: center;
 }
@@ -80,4 +73,14 @@ input{
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border-radius: 5px;
+}
+
+.small_margin_bot {
+    margin-bottom: 10px;
+}
+
+.appt-box {
+    border-color: gray;
+    border-style: outset;
+    border-width: 2px;
 }
