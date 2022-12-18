@@ -36,7 +36,7 @@
 
 html,body,.container {
     height:100%;
-    background-color: whitesmoke;
+    background-color: rgb(250, 227, 251);
 }
 
 .sidebar_link_btn {
@@ -55,7 +55,7 @@ html,body,.container {
 }
 
 .sidebar_link_btn:hover {
-    background-color: gray;
+    background-color: rgb(244, 158, 198);
 }
 
 .sidebar_link_row {
