@@ -1,10 +1,11 @@
 const userRoutes = require("./users");
 const garageOwnerRoutes = require("./garageOwner");
+const garageroutes = require("./garage")
 const path = require('path');
 
 const constructorMethod = (app) => {
     app.use("/users", userRoutes);
-    app.use("/garage", garageOwnerRoutes);
+    app.use("/garage", garageroutes);
 
     app.get('/', (req, res) => {
         res.render('homepage', {'title': 'Homepage'})
