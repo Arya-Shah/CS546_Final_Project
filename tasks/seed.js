@@ -13,7 +13,7 @@ async function main() {
     
     const Ludlow = await garages.creategarage("Ludlow Garage", "New York City, New York", "212-505-0869", "http://ludlowgarage.com", 4.3, { pickuppart: true, maintainance: true, delivercar: true });
     const Jack = await garages.creategarage("Jack's Service Garage", "Jersey City, New Jersey", "201-656-3321", "https://jacksservicegarage.wixsite.com/website", 4.6, { pickuppart: true, maintainance: true, delivercar: false });
-    const CUNHA = await garages.creategarage("CUNHA'S GARAGE", "Newark, New Jersey", "973-991-3697", "https://cunhas-garage.business.site", 5, { pickuppart: false, maintainance: true, delivercar: true });
+    const Cunha = await garages.creategarage("CUNHA'S GARAGE", "Newark, New Jersey", "973-991-3697", "https://cunhas-garage.business.site", 5, { pickuppart: false, maintainance: true, delivercar: true });
     const Door = await garages.creategarage("Garage Door Solutions LLC", "Brooklyn, New York", "718-213-1147", "https://garagedoorsolutionsllc-garagedoorsupplier.business.site/?utm_source=gmb&utm_medium=referral", 5, { pickuppart: true, maintainance: true, delivercar: true });
     const Schermerhorn = await garages.creategarage("200 Schermerhorn St Garage", "Brooklyn, New York", "718-858-8046", "https://www.spotangels.com/map?lng=-73.9847062669309&lat=40.68822255134751&zoom=15#id=2152143", 4, { pickuppart: true, maintainance: true, delivercar: false });
 
