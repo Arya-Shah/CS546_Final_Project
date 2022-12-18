@@ -61,10 +61,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
   console.log('Server is started on http://127.0.0.1:'+PORT);
 });
-
-// configRoutes(app);
-
-// app.listen(3000, () => {
-//   console.log("We've now got a server!");
-//   console.log('Your routes will be running on http://localhost:3000');
-// });

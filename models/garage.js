@@ -1,18 +1,16 @@
+const { url } = require('inspector');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-garageSchema = new Schema( {
-	
-	unique_id: Number,
-	zip_code: Number,
-	services_offered: Array,
-	hours: String,
-	price: Array,
-	contact: String,
-	payment_method: Array,
-	inventory: String,
-	isGarage: Boolean
+garageSchema = new Schema({
+      name: String,
+      location: String,
+      phoneNumber: String,
+      website: String,
+      overallRating: Number,
+      serviceOptions: Array
+    
 }),
 Garage = mongoose.model('Garage', garageSchema);
 
-module.exports = User;
+module.exports = Garage;

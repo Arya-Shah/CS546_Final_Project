@@ -1,0 +1,90 @@
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        
+        <div id="site_sidebar" class="col-2">
+            <div id="sidebar_title_row" class="row">
+                <span id="sidebar_title"> Sidebar Title </span>
+            </div>
+            
+            <div class="row sidebar_link_row">
+                <a class="sidebar_link_btn" href="/example_page/" > Example Page </a>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Example Btn </span>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Example Btn </span>
+            </div>
+            <div class="row sidebar_link_row">
+                <span class="sidebar_link_btn" > Example Btn </span>
+            </div>
+            
+        </div>
+        
+
+        
+        <div id="site_content" class="col-10">
+            <div class="row">
+                <div class="col-6">
+                    <span>
+                        Monthly Earnings
+                    </span>
+                </div>
+                <div class="col-6">
+                    <span>
+                        Number of Booked Appointments
+                    </span>
+                </div>
+             </div>
+
+            <div class="row">
+                <h2>
+                    Appointments
+                </h2>
+            </div>
+            <div class="col-12">
+                <% for (var key in appointments) { %>
+                    <tr><td>Garage</td><td><%= garageslist[key] %></td></tr>
+                
+                    <div class="row py-3 px-2 my-1 appt-box">
+                        <div class="col-12">
+                            <div class="row">
+                                <span>
+                                    User: 
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    Appointment: <%= appointments[key].date_time %> for the service: <%= appointments[key].service %>.
+                                </span>
+                            </div>
+                            <div class="row">
+                                <span>
+                                    Estimated Total Price: $<%= appointments[key].total_price %>
+                                </span>
+                            </div>
+                        </div>                        
+                    </div>
+                    <% } %>
+            </div>
+            <a href="/garage/create_appointment/"> Create Appointment +</a>
+            
+            <div>
+            </div>
+            
+
+             <div class="row">
+                <h2>
+                    Inventory
+                </h2>
+             </div>
+
+             <div class="row">
+                <h2>
+                    
+                </h2>
+             </div>
+        </div>
+        
+    </div>
+</div>

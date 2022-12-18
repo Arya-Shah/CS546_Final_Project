@@ -9,9 +9,8 @@ userSchema = new Schema( {
 	password: String,
 	passwordConf: String,
 	isGarage: Boolean,
-	history: Array,
-	favorite: String,
-	schedule: Array
+	historyOfSchedule:Array,
+	favoriteGarages: Array,
 }),
 User = mongoose.model('User', userSchema);
 
