@@ -6,6 +6,11 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var path = require('path')
+const exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+
 mongoose.connect('mongodb://localhost:27017/garageManagement', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -22,8 +27,16 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
 });
 
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');	
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static(__dirname + '/views'));
+
 app.use(session({
-  name: 'AuthCookie'
+  name: 'AuthCookie',
   secret: 'work hard',
   resave: true,
   saveUninitialized: false,
@@ -47,30 +60,19 @@ const logger = function(req, res, next) {
 
 app.use(logger);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');	
+// // catch 404 and forward to error handler
+// app.use(function (req, res, next) {
+//   var err = new Error('File Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use(express.static(__dirname + '/views'));
-
-var index = require('./routes/index');
-app.use('/', index);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  var err = new Error('File Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-// define as the last app.use callback
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.send(err.message);
-});
+// // error handler
+// // define as the last app.use callback
+// app.use(function (err, req, res, next) {
+//   res.status(err.status || 500);
+//   res.send(err.message);
+// });
 
 
 const PORT = process.env.PORT || 3000;

@@ -7,7 +7,8 @@ var garage = require('../data/garage')
 var appointment = require('../data/appointment')
 
 
-router.get('/', (req, res) => {
+router.route('/').get(async (req, res) => {
+    console.log("HERE");
     res.render('homepage', {'title': 'Homepage'})
 });
 
