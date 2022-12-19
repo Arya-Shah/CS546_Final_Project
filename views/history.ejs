@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+	<div class="col-md-4 col-md-offset-4">
+		<div>
+			<p>Appointment History</p>
+		</div>
+		<div>
+			<center>
+				<table class="table table-hover text-center">
+                    <% for (var key in data) { %>
+                        <tr><td><%= data[key].garage_name %></td><td><%= data[key].date_time %></td><td><%= data[key].service %></td></tr>
+                    <% } %>
+				</table>
+			</center>
+		</div>
+	</div>
+</body>
+</html>

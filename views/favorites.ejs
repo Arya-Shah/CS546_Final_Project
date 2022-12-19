@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+	<div class="col-md-4 col-md-offset-4">
+		<div>
+			<p>Favorite Garage</p>
+		</div>
+		<div>
+			<center>
+				<table class="table table-hover text-center">
+                    <% for (var key in data) { %>
+                        <tr><td>Garage</td><td><%= data[key] %></td> <td><a href="/garage/create_appointment/<%= data[key] %>" class="fa fa-edit" style="font-size:36px"></a></td></tr>
+						
+                    <% } %>
+					
+				</table>
+			</center>
+		</div>
+	</div>
+</body>
+</html>

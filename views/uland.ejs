@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User</title>
+    <link rel="stylesheet" href="./css/uland.css">
+    <script src="./js/uscript.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+    <span class="land">
+        <nav>
+            <ul>
+                <li> <a href="#"></a></li>
+                <li> <a href="#"></a></li>
+                <li> <a href="#"></a></li>
+                <li> <a href="#"></a></li>
+            </ul>
+            <div class="search-wrapper">
+            <form action="/user" method="get">
+                <label for="search">Search Garage</label>
+                <input type="search" name="searchGarageName" id="search" data-search>
+                <button type="submit">Search</button>
+            </form>
+            </div>
+            <img src="user.png" class="user-pic" onclick="toggleMenu()" alt="#">
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="user.png" alt="#">
+                        <h2><%= username %></h2>
+                    </div>
+                    <hr>
+                    <a href="/user/details" class="sub-menu-link">
+                        <img src="profile.jpg" alt="#">
+                        <p> Profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="/user/favorite" class="sub-menu-link">
+                        <img src="profile.png" alt="#">
+                        <p>Favorite Garages</p>
+                        <span>></span>
+                    </a>
+                    <a href="/user/getHistory" class="sub-menu-link">
+                        <img src="profile.png" alt="#">
+                        <p>History</p>
+                        <span>></span>
+                    </a>
+                    <a href="/logout" class="sub-menu-link">
+                        <img src="logout.png" alt="#">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </span>
+
+   
+        <!-- Body part starts here -->
+        <% for (var key in garageslist) { %>
+           
+            <div class="divstyle">
+
+                    Garage name: &nbsp;&nbsp; <%= garageslist[key].name %>, Location: &nbsp;&nbsp;<%= garageslist[key].location %>
+                            <div class="alignright ">
+                                <a href="/garage/create_appointment/<%= garageslist[key].name %>" class="fa fa-edit" style="font-size:36px"></a>
+                                <% var isfav = 0; %>
+                                <% for (var fav in favorites) { %>
+                                    <% if (garageslist[key].name == favorites[fav]) { %>
+                                        <% isfav = 1; %>                                           
+                                    <% } %>
+                                <% } %>
+                                <% if (isfav == 1) { %>
+                                        <button class="fa fa-star margin-5" style="font-size:36px" onclick=""></button>
+                                <% } else { %>
+                                    <form action="/user/setfavorite" method="post">
+                                        <input type="hidden" name="favorite" value="<%= garageslist[key].name %>">
+                                        <button class="fa fa-star-o margin-5" style="font-size:36px" onclick=""></button>
+                                    </form>
+                                <% } %>
+                                <a href="/user/garage/details?GarageName=<%= garageslist[key].name %>" class="fa fa-info-circle" style="font-size:36px"></a>
+                            </div>
+            </div>
+            <% } %>
+    <!-- Body part ends here -->
+    <div class="user-cards" data-user-cards-container></div>
+    <template data-user-template>
+        <div class="card">
+            <div class="header" data-header></div>
+            <div class="body" data-body>
+                <h1>hello</h1>
+            </div>
+        </div>
+    </template>
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
+
+
+</body>
+
+</html>
