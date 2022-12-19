@@ -98,6 +98,19 @@ const createUser = async (
   
   };
 
+const getUserByEmail = async(email) => {
+    if (!email) throw "no email";
+    if (typeof(email) != 'string') throw "email not string";
+    let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (!emailRegex.test(email.trim())) throw "not valid email";
+    const emailToSubmit = email.trim().toLowerCase();
+
+    userCollection = await users();
+    const user = await userCollection.findOne({email: emailToSubmit});
+    if (!user) throw "No user found with that email."
+    return user;
+}
+
 const getHistory = async(id) =>{
     try{
         const userCollection = await users();
@@ -152,5 +165,6 @@ module.exports = {
     checkUser,
     favoriteOfUser,
     getHistory,
-    searchGarage
+    searchGarage,
+    getUserByEmail
 };

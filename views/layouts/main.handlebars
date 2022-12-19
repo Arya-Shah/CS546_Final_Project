@@ -14,9 +14,10 @@
         <div id="site_header" class='col-12'>
             <span id='site_title'>
                 <h1> Mygarage </h1>
-                <h2> Vehicle Maintenance & Repair Website </h2>
             </span>
-
+            {{#if username}}
+            <span id="username" style="float:right">{{username}}</span>
+            {{/if}}
             {{!-- handlebars if statement for if authenticated --}}
             {{!-- make this link to user profile --}}
         </div>

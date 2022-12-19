@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const data = require('../data');
-const { checkUser, createUser } = require('../data/users');
+const { checkUser, createUser, getUserByEmail } = require('../data/users');
 const garageData = data.get;
 
 router
@@ -37,8 +37,10 @@ router
 
         const loginCheck = await checkUser(emailToSubmit, password);
         if (loginCheck.authenticatedUser == true) {
-            req.session.user = {email: email, logged_in: true}
-            console.log("ROUTE TIME");
+            const tempUser = await getUserByEmail(emailToSubmit);
+            req.session.user = true
+            req.session.email = tempUser.email;
+            req.session.user_id = tempUser._id;
             res.redirect('/');
         } else {
             res.render('login', {'title': 'Login', 'error': "Invalid email pass combo"})
