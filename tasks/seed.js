@@ -32,7 +32,30 @@ async function main() {
     const Tiger = await garages.creategarage("Tiger Garage", "Princeton, New Jersey", "609-924-0609", "https://tigergarage.mechanicnet.com", 4.6,{pickuppart: true, maintainance: true, delivercar: true});
     const Kingston = await garages.creategarage("Kingston", "Kingston, New Jersey", "609-921-6134", "https://kingstongarage.com", 4.7,{pickuppart: true, maintainance: true, delivercar: true});
 
+    const js = await users.createUser("John Smith","johnsmith@gmail.com","Jsmith123!");
+    const ek = await users.createUser("Elizabeth Krasu", "elizabeth2631.karus@gmail.com","erW#125dfDs");
+    const jb = await users.createUser("Jason Brown", "brown.jason@gmail.com", "sd45ET3!ML");
+    const rj = await users.createUser("Robert Jones", "jones.robert@gmail.com", "weASD!AIRIU13fy");
+    const jt = await users.createUser("Joseph Taylor", "jose234.taylor@gmail.com", "asdTY#12gh");
+
+    const pm = await users.createUser("Paul Martin", "paul256.martin@gmail.com", "pmarTIn256A!I");
+    const rl = await users.createUser("Ryan Lee", "ryan123.lee@gmail.com", "ryAnlee34Fd!a");
+    const jw = await users.createUser("John White", "john252.white@gmail.com", "Jwhite123!dfAs");
+    const ph = await users.createUser("Peter Hill", "peter612.hill@gmail.com", "peterHill123!sd");
+    const jg = await users.createUser("Joe Green", "joe1021.green@gmail.com", "joe10AIG@3grA2sd");
     
+    const fc = await users.createUser("Fred Carter", "fred345.carter@gmail.com", "fc2@78AIGey12f");
+    const se = await users.createUser("Steve Evans", "ste249.evans@gmail.com", "zYste3@4RFse10Sd");
+    const jm = await users.createUser("Jimmy Morris", "jimmy1208.morris@gmail.com", "jimmy!Morris1208yes");
+    const dc = await users.createUser("Danny Cook", "danny1203.cook@gmail.com", "danny1203!Cook3e");
+    const mk = await users.createUser("Marvin Kim", "marvin1123.kim@gmail.com", "marMRT@345wer");
+
+    const tb = await users.createUser("Troy Brooks", "troy921.brooks@gmail.com", "troy921T!roy");
+    const mg = await users.createUser("Mario Gray", "mario213.gray@gmail.com", "mario123Gray#Agml");
+    const jp = await users.createUser("Jay Price", "rtas45.price@gmail.com", "rtas45RTY!Aj");
+    const lh = await users.createUser("Leo Hughes", "leo414.hughes@gmail.com", "leo414Hugh#df");
+    const th = await users.createUser("Tim Harris", "tim312.harris@gmail.com", "tim345!AUYh2j");
+
     console.log('Done seeding database');
     await db.serverConfig.close();
 }
