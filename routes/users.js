@@ -43,7 +43,7 @@ router
             req.session.user_id = tempUser._id;
             res.redirect('/');
         } else {
-            res.render('login', {'title': 'Login', 'error': "Invalid email pass combo"})
+            res.render('login', {'title': 'Login', 'error': "Invalid email pass combo", 'user_email': req.session.email,})
         }
     }
     catch (e) {
@@ -103,25 +103,5 @@ router.get('/logout', async (req, res) => {
     res.send('Logged out');
 });
 
-router.route("/").post(async (req, res) => {
-    try {
-        let garagePostData = req.body;
-        if (!garagePostData.title || !garagePostData.title.match(/^[A-Za-z]+$/)) {
-            res.render('error', { layout: 'main', searchGarageName: garagePostData.title, title: 'Error', errorClass: "error" });
-            res.status(404)
-            return;
-        }
-
-
-        const data = await garageData.searchGarageName(req.body.title.toString());
-        if (!data.name.length || !data.id.length) {
-            res.render('error', { layout: 'main', title: 'Error', searchGarageName: garagePostData.title, errorClass: "error" }); return;
-        }
-        res.render('garageFound', { layout: 'main', title: 'Garages Found', name: data.name, id: data.id })
-    } catch (e) {
-        res.render('error', { layout: 'main', title: 'Error', searchGarageName: e, errorClass: "error" });
-        res.status(400)
-    }
-});
 
 module.exports = router;

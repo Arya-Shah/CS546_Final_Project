@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
     <html>
         <head>
@@ -12,12 +11,14 @@
 
         {{!-- begin header --}}
         <div id="site_header" class='col-12'>
-            <span id='site_title'>
-                <h1> Mygarage </h1>
-            </span>
-            {{#if username}}
-            <span id="username" style="float:right">{{username}}</span>
-            {{/if}}
+            <div class='row header_row'>
+                <span id='site_title'>
+                    <h1> Mygarage </h1>
+                </span>
+                {{#if user_email}}
+                    <span id="user_email" class="user_email_header">{{user_email}}</span>
+                {{/if}}
+            </div>
             {{!-- handlebars if statement for if authenticated --}}
             {{!-- make this link to user profile --}}
         </div>

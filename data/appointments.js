@@ -1,5 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const appointments = mongoCollections.appointments;
+const userCol = mongoCollections.users;
+const garageCol = mongoCollections.garages;
 const { ObjectId } = require('mongodb');
 const { getUserById } = require('./users');
 
@@ -41,6 +43,21 @@ const getAllAppointmentsByGarage = async(id) => {
   return appointmentList;
 }
 
+const getAllAppointmentsByUserAndGarage = async(user_id, garage_id) => {
+  const appointmentCollection = await appointments();
+
+  if (!user_id) throw "no user id given";
+  if (typeof(user_id) != 'string') throw "user id not string";
+  if (!ObjectId.isValid(user_id)) throw "user id is not a valid ObjectId";
+
+  if (!garage_id) throw "no garage id given";
+  if (typeof(garage_id) != 'string') throw "garage id not string";
+  if (!ObjectId.isValid(garage_id)) throw "garage Id is not a valid ObjectId";
+
+  const appointmentList = await appointmentCollection.find({user_id: user_id, garage_id: garage_id }).toArray();
+  return appointmentList;
+}
+
 
 const createAppointment = async (
     user_id,
@@ -60,9 +77,19 @@ const createAppointment = async (
     if (typeof(service) != 'string') throw "service not string"
     if (typeof(total_price) != 'number') throw "total_price not number"
 
-    // TODO: Add check for user_id in users database
-    // TODO: Add check for garage_id in garage database
-    // throw if either fail
+    if (!ObjectId.isValid(user_id)) throw "user id not valid objectid";
+    if (!ObjectId.isValid(garage_id)) throw "garage id not valid objectid";
+
+    const userCollection = await userCol();
+    const garageCollection = await garageCol();
+    let tempUser = await userCollection.findOne({_id: ObjectId(user_id)});
+    let tempGarage = await garageCollection.findOne({_id: ObjectId(garage_id)});
+    if(!tempUser) {
+      throw "user not found in DB";
+    }
+    if (!tempGarage) {
+      throw "garage not found in DB";
+    }
 
     let test_date = new Date(date_time);
     if (!test_date.getTime()) throw "invalid Date string";
@@ -74,7 +101,7 @@ const createAppointment = async (
 
     const appointmentCollection = await appointments();
 
-    temp_user = getUserById(user_id);
+    temp_user = await getUserById(user_id);
     user_name = temp_user.name;
 
     let new_appt = {
@@ -117,6 +144,7 @@ const deleteAppointment = async (apptId) => {
     createAppointment,
     deleteAppointment,
     getAllAppointments,
+    getAllAppointmentsByUserAndGarage,
     getAllAppointmentsByGarage,
     getAllAppointmentsByUser,
   };

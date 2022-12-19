@@ -11,7 +11,6 @@ async function main() {
     // users
 
     const js = await users.createUser("John Smith","johnsmith@gmail.com","Jsmith123!");
-    console.log(js);
     const ek = await users.createUser("Elizabeth Krasu", "elizabeth2631.karus@gmail.com","erW#125dfDs");
     const jb = await users.createUser("Jason Brown", "brown.jason@gmail.com", "sd45ET3!ML");
     const rj = await users.createUser("Robert Jones", "jones.robert@gmail.com", "weASD!AIRIU13fy");
@@ -27,13 +26,13 @@ async function main() {
     const se = await users.createUser("Steve Evans", "ste249.evans@gmail.com", "zYste3@4RFse10Sd");
     const jm = await users.createUser("Jimmy Morris", "jimmy1208.morris@gmail.com", "jimmy!Morris1208yes");
     const dc = await users.createUser("Danny Cook", "danny1203.cook@gmail.com", "danny1203!Cook3e");
-    // const mk = await users.createUser("Marvin Kim", "marvin1123.kim@gmail.com", "marMRT@345wer");
+    const mk = await users.createUser("Marvin Kim", "marvin1123.kim@gmail.com", "marMRT@345wer");
 
-    // const tb = await users.createUser("Troy Brooks", "troy921.brooks@gmail.com", "troy921T!roy");
-    // const mg = await users.createUser("Mario Gray", "mario213.gray@gmail.com", "mario123Gray#Agml");
-    // const jp = await users.createUser("Jay Price", "rtas45.price@gmail.com", "rtas45RTY!Aj");
-    // const lh = await users.createUser("Leo Hughes", "leo414.hughes@gmail.com", "leo414Hugh#df");
-    // const th = await users.createUser("Tim Harris", "tim312.harris@gmail.com", "tim345!AUYh2j");
+    const tb = await users.createUser("Troy Brooks", "troy921.brooks@gmail.com", "troy921T!roy");
+    const mg = await users.createUser("Mario Gray", "mario213.gray@gmail.com", "mario123Gray#Agml");
+    const jp = await users.createUser("Jay Price", "rtas45.price@gmail.com", "rtas45RTY!Aj");
+    const lh = await users.createUser("Leo Hughes", "leo414.hughes@gmail.com", "leo414Hugh#df");
+    const th = await users.createUser("Tim Harris", "tim312.harris@gmail.com", "tim345!AUYh2j");
 
 
     // garages

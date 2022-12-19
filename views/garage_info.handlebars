@@ -45,35 +45,40 @@
             {{#if cur_user}}
                 <div class="row">
                     <h2>
-                        Appointments
+                        Your Appointments
                     </h2>
                 </div>
-                
-                <div class="col-12">
-                    {{#each appointments}}
-                        <div class="row py-3 px-2 my-1 appt-box">
-                            <div class="col-12">
-                                <div class="row">
-                                    <span>
-                                        User: {{this.user_name}}
-                                    </span>
-                                </div>
-                                <div class="row">
-                                    <span>
-                                        Appointment: {{this.date_time}} for the service: {{this.service}}.
-                                    </span>
-                                </div>
-                                <div class="row">
-                                    <span>
-                                        Estimated Total Price: ${{this.total_price}}
-                                    </span>
-                                </div>
-                            </div>                        
-                        </div>
-                    {{/each}}
-                </div>
-                
-                <a href="/garage/create_appointment/"> Create Appointment +</a>
+                {{#if appointments}}
+                    <div class="col-12">
+                        {{#each appointments}}
+                            <div class="row py-3 px-2 my-1 appt-box">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <span>
+                                            User: {{this.user_name}}
+                                        </span>
+                                    </div>
+                                    <div class="row">
+                                        <span>
+                                            Appointment: {{this.date_time}} for the service: {{this.service}}.
+                                        </span>
+                                    </div>
+                                    <div class="row">
+                                        <span>
+                                            Estimated Total Price: ${{this.total_price}}
+                                        </span>
+                                    </div>
+                                </div>                        
+                            </div>
+                        {{/each}}
+                        
+                    </div>
+                {{else}}
+                    <div class='row'>
+                        <h4>You have no appointments.</h4>
+                    </div>
+                {{/if}}
+                <a href="/garage/create_appointment/{{garage._id}}"> Create Appointment +</a>
             {{/if}}
              <div class="row">
                 <h2>

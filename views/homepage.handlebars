@@ -8,8 +8,13 @@
             </div>
             {{!-- begin sidebar links --}}
             <div class="row sidebar_link_row">
-                <a class="sidebar_link_btn" href="/login">  Login/Register </a>
+                <a class="sidebar_link_btn active" href="/"> Homepage </a>
             </div>
+            {{#unless logged_in}}
+                <div class="row sidebar_link_row">
+                    <a class="sidebar_link_btn" href="/login">  Login/Register </a>
+                </div>
+            {{/unless}}
             <div class="row sidebar_link_row">
                 <a class="sidebar_link_btn" href="/garage/garage_list"> Garage List </a>
             </div>

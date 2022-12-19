@@ -25,21 +25,20 @@
 
         {{!-- begin page content --}}
         <div id="site_content" class="col-10 no-float">
-            <h2>Create appointment here.</h2>
+            <h2>Create appointment here for {{garage.name}}.</h2>
 
-            <form id="create-appointment-form" method="POST" action="/garage/create_appointment">
+            <form id="create-appointment-form" method="POST" action="/garage/create_appointment/{{garage._id}}">
                 <label for="dateTimeInput">Date/Time</label>
-                <input type="datetime-local" id="dateTimeInput" name="dateTimeInput"><br>
+                <input type="datetime-local" id="dateTimeInput" name="dateTimeInput" required><br>
                 
-                <label for="serviceInput">Date/Time</label>
-                <select name="serviceInput" id="serviceInput">
+                <label for="serviceInput">Service</label>
+                <select name="serviceInput" id="serviceInput" required>
+                    {{#each services}}
+                        {{#if this}}
+                            <option value="{{@key}}">{{@key}}</option>
+                        {{/if}}
+                    {{/each}}
                     {{!-- TODO: Make this load available services based on garage --}}
-                    <option value="Oil Change">
-                        Oil Change
-                    </option>
-                    <option value="Engine Change">
-                        Engine Change
-                    </option>
                 </select><br>
                 <div class="small_margin_bot">
                     {{!-- TODO: Add total price from service value of garage --}}

@@ -11,7 +11,7 @@ const constructorMethod = (app) => {
 			console.log('in redirect');
 			res.redirect('/');
 		  } else {
-			res.render('login', {'title': 'Login'});
+			res.render('login', {'title': 'Login', 'user_email': req.session.email});
 		  }
         	
     })
@@ -20,11 +20,11 @@ const constructorMethod = (app) => {
 			console.log('in redirect');
 			res.redirect('/');
 		  } else {
-        	res.render('register', {'title': 'Register'});
+        	res.render('register', {'title': 'Register', 'user_email': req.session.email});
 		  }
     })
 	app.get('/', (req, res) => {
-        res.render('homepage', {'title': 'Homepage'})
+        res.render('homepage', {'title': 'Homepage', 'user_email': req.session.email, 'logged_in': req.session.user})
     });
 
     app.use('*', (req, res) => {
