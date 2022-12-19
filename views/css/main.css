@@ -1,12 +1,3 @@
-/*body,
- table,
-    thead,
-    tr,
-    tbody,
-    th,
-    td {
-        text-align: center;
-    }*/
 body{
 	text-align: center !important;
 }
@@ -21,4 +12,9 @@ input{
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border-radius: 5px;
+}
+
+.input {
+	width: 75%;
+	border-bottom: 1px dashed #333;
 }
