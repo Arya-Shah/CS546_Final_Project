@@ -48,6 +48,24 @@
                 </ol>
             </span>
         </div>
+
+        <div class="searchbar">
+            <form class="searchCity" action='/garage/garage_list' method="POST">
+                <div>
+                    <label class="city" for="searchCity">Search Your City:</label>
+                    <input type="text" name="city" id="searchCity" placeholder="Search..">
+                    <button class="button" type="submit">Submit</button>
+                </div>
+            </form>
+        
+            <form class="searchService" action='/garage/garage_list' method="POST">
+                <div>
+                    <label class="service" for="searchService">Search Service you Want:</label>
+                    <input type="text" name="city" id="searchService" placeholder="Search..">
+                    <button class="button" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
         {{!-- end page content --}}
     </div>
 </div>
