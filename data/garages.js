@@ -1,4 +1,5 @@
 const mongoCollections = require('../config/mongoCollections');
+const users = require("./users");
 const garages = mongoCollections.garages;
 const { ObjectId } = require('mongodb');
 
@@ -34,12 +35,13 @@ module.exports = {
     return garageList;
   },
 
-  async creategarage(name, location, phoneNumber, website, overallRating, serviceOptions) {
-    if (!name || !location || !phoneNumber || !website || !overallRating || !serviceOptions)
+  async creategarage(name, location, phoneNumber, website, inventory, serviceOptions, ownerid) {
+    if (!name || !location || !phoneNumber || !website || !serviceOptions)
       throw 'You must provide all valid inputs for your garage';
 
     let phoneNo = /^\d{3}?(-)\d{3}(-)\d{4}$/;
     //let pattern = /^(http(s?):\/\/www\.)(.){5,}(\.com)$/i;
+    let price_regex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
 
     if (typeof name != 'string' || typeof location != 'string' || typeof phoneNumber != 'string' || typeof website != 'string' )
       throw 'please enter a valid string for your inputs';
@@ -50,15 +52,27 @@ module.exports = {
     if(!phoneNo.test(phoneNumber))
       throw 'Phone number does not follow proper format'
 
-    //f(!pattern.test(website) || website.length < 20)
-    //  throw 'The provided URL is not valid. Please provide another URL'
+    if (!Array.isArray(inventory)) 
+      throw 'Inventory should be an array';
+    else{
+      forEach((element) => {
+        if(!element.hasOwnProperty('Part') || !element.hasOwnProperty('Price') || !element.hasOwnProperty('Number'))
+          throw 'Trying to insert wrong key. Please enter valid key'
+        if(typeof element.Part !== 'string' || typeof element.Price !== 'number' || typeof element.Number !== 'number')
+          throw 'The object keys should be boolean. Please check'
+      
+        const x = element.Price
+        if(!price_regex.test(x))
+          throw "Price is invalid"
+        })
 
-    if(typeof overallRating !== 'number' || overallRating < 0 || overallRating > 5)
-      throw 'Overall rating is not valid. Please provide a valid rating'
+    }
+    
       
     if (typeof serviceOptions !== 'object') 
       throw 'Service options should be an object';
 
+   
     if(!serviceOptions.hasOwnProperty('pickuppart') || !serviceOptions.hasOwnProperty('maintainance') || !serviceOptions.hasOwnProperty('delivercar'))
       throw 'Trying to insert wrong key. Please enter valid key'
 
@@ -66,9 +80,23 @@ module.exports = {
       throw 'The object keys should be boolean. Please check'
 
     const garageCollection = await garages();
-
     const samegarage = await garageCollection.findOne({ name: name, location: location, phoneNumber: phoneNumber });
-    
+
+    if (!ownerid) 
+      throw 'You must provide an id to search for';
+
+    if (typeof ownerid !== 'string' || !ownerid.trim().replace(/\s/g, "").length)
+      throw 'Please provide a valid ID for the owner'
+
+    if(!ObjectId.isValid(ownerid))
+      throw 'The ID is not a valid Object ID';
+
+    const userCollection = await users();
+    const validuser = await userCollection.findOne({ _id: ownerid})
+
+    if (validuser !==null)
+      throw 'Owner id provided is not valid'
+
     if (samegarage !== null)
       throw 'garage you are trying to add already exists. Please change Name, Location or Phone number of the garage';
 
@@ -77,8 +105,9 @@ module.exports = {
       location: location,
       phoneNumber: phoneNumber,
       website: website,
-      overallRating: overallRating,
-      serviceOptions: serviceOptions
+      inventory: inventory,
+      serviceOptions: serviceOptions,
+      ownerid: ownerid
     };
 
     const insertInfo = await garageCollection.insertOne(newgarage);

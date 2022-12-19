@@ -1,5 +1,4 @@
 const userRoutes = require("./users");
-const garageOwnerRoutes = require("./garageOwner");
 const garageroutes = require("./garage")
 const path = require('path');
 

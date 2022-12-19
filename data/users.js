@@ -93,6 +93,26 @@ const setFavorite = async(_id,favorite_) =>{
     }
 }
 
+const getuser = async(id) => {
+    if (!id) 
+      throw 'You must provide an id to search for';
+
+    if (typeof id !== 'string' || !id.trim().replace(/\s/g, "").length)
+      throw 'Please provide a valid ID for the user'
+
+    if(!ObjectId.isValid(id))
+      throw 'The ID is not a valid Object ID';
+
+    const userCollection = await users();
+    const user = await userCollection.findOne({ _id: ObjectId(id) });
+
+    if (user === null)
+      throw 'No user with that id';
+
+    user._id = user._id.toString();
+    return user;
+}
+
 const searchGarage = async (searchGarageName) => {
     const garage = await axios.get();
     let res = garage.data.filter(x => `${x.garageName}`.toUpperCase().includes(searchGarageName.toUpperCase())).slice(0,20);
@@ -105,5 +125,6 @@ module.exports = {
     checkUser,
     favoriteOfUser,
     getHistory,
+    getuser,
     searchGarage
 };
