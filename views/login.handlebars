@@ -1,104 +1,59 @@
-{{!--
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!-- css stylesheet -->
-<link rel="stylesheet" href="/public/css/style.css">
-<div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form action="#">
-            <h1>Create Account</h1>
-            <span>or use your email for registration</span>
-            <div class="infield">
-                <input type="text" placeholder="Name" required />
-                <label></label>
-            </div>
-            <div class="infield">
-                <input type="email" placeholder="Email" name="email" required />
-                <label></label>
-            </div>
-            <div class="infield">
-                <input type="password" placeholder="Password" required />
-                <label></label>
-            </div>
-            <div class="infield">
-                <input type="password" placeholder=" Re- Enter Password" required />
-                <label></label>
-            </div>
-            <button>Sign Up</button>
-            <button id="submitBtn"></button>
+<div class="col-md-4 col-md-offset-4">
+    <h3>Login</h3>
+    <div class="form-group">
+        <form id="login-form" method="POST">
+ 
+            <label for="emailInput">Email</label>
+            <input class="form-control" type="text" id="emailInput" name="emailInput" placeholder="Email" required><br>
+
+            <label for="passwordInput">Password</label>
+            <input class="form-control" type="password" id="passwordInput" name="passwordInput" placeholder="Password" required><br>
+            <input type="submit" value="Login" class="btn btn-success">
+
         </form>
     </div>
-    <div class="form-container sign-in-container">
-        <form action="#">
-            <h1>Sign in</h1>
-            <span>or use your account</span>
-            <div class="infield">
-                <input type="email" placeholder="Email" name="email" required />
-                <label></label>
-            </div>
-            <div class="infield">
-                <input type="password" placeholder="Password" required />
-                <label></label>
-            </div>
-            <a href="#" class="forgot">Forgot your password?</a>
-            <a href="#" class="garageowner"> or Garageowner</a>
-            <div>
-                <label for="submit">Sign In</label>
-                <input type="submit" name="" value="Sign In" onclick="validate()" required>
-            </div>
-        </form>
+    <div class="mssg bg-danger">
+        <span id="check"></span>
     </div>
-    <div class="overlay-container" id="overlayCon">
-        <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1>Welcome Back!</h1>
-                <p>&nbsp&nbsp</p>
-                <button>Sign In</button>
-            </div>
-            <div class="overlay-panel overlay-right">
-                <h1>Hola</h1>
-                <p>Enter your personal details and start journey with us</p>
-                <button>Sign Up</button>
-            </div>
-        </div>
-        <button id="overlayBtn"></button>
+    <div id="LangTable"><a href="/user" id="aa"></a>
+    <div id="LangTable2"><a href="/garage" id="bb"></a>
     </div>
+    <p id="error"> {{error}}</p>
+
+    <div>
+        <span>Create a new Account? <a href="/register">Register here</a></span>
+    </div>
+    
 </div>
 
-<script>
-    const container = document.getElementById('container');
-    const overlayCon = document.getElementById('overlayCon');
-    const overlayBtn = document.getElementById('overlayBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    overlayBtn.addEventListener('click', () => {
-        container.classList.toggle('right-panel-active');
-        overlayBtn.classList.remove('btnScaled');
-        window.requestAnimationFrame(() => {
-            overlayBtn.classList.add('btnScaled');
-        })
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#login-form").submit(function(event) {
+            event.preventDefault(); 
+            let emailInput = document.getElementById('emailInput');
+            let email = emailInput.value;
+            let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            
+            let password = $('#passwordInput').val();
+
+            if (emailRegex.test(email) && /^\S*$/.test(password) &&  /(?=.*[A-Z])(?=.*\d)(?=.*\W)/.test(password)) {
+                $("#error").text('');
+                $.ajax({
+                    type: 'POST',
+                    url: '/users/login',
+                    data: $('#login-form').serialize(),
+                    dataType: "json",
+                }).always( function (data) {
+                    if(data.status == 200) {
+                        window.location.href = '/';
+                    } else {
+                        $('#login-form')[0].reset();
+                    }
+                });
+            } else {
+                $("#error").text("Invalid Email Address or Pwd");
+            }
+        });
     });
-    submitBtn.addEventListener('click', () => {
-
-    })
-</script> --}}
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{title}}</title>
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <link rel="stylesheet" type="text/css" href="./style.css">
-</head>
-
-<body>
-    {{{body}}}
-</body>
-
-</html>
+</script>

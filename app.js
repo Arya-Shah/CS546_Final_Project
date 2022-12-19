@@ -22,7 +22,7 @@ app.use(session({
   secret: 'some secret string!',
   resave: false,
   saveUninitialized: true
-}))
+}));
 
 const logger = function(req, res, next) {
   curDate = new Date().toUTCString();
