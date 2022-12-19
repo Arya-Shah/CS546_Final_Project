@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const appointments = mongoCollections.appointments;
 const { ObjectId } = require('mongodb');
+const { getUserById } = require('./users');
 
 // Appointments collection:
 // - _id
@@ -17,6 +18,29 @@ const getAllAppointments = async () => {
   // console.log(appointmentList);
   return appointmentList;
 }
+
+const getAllAppointmentsByUser = async(id) => {
+  const appointmentCollection = await appointments();
+
+  if (!id) throw "no id given";
+  if (typeof(id) != 'string') throw "id not string";
+  if (!ObjectId.isValid(id)) throw "Id is not a valid ObjectId";
+
+  const appointmentList = await appointmentCollection.find({ user_id: id }).toArray();
+  return appointmentList;
+}
+
+const getAllAppointmentsByGarage = async(id) => {
+  const appointmentCollection = await appointments();
+
+  if (!id) throw "no id given";
+  if (typeof(id) != 'string') throw "id not string";
+  if (!ObjectId.isValid(id)) throw "Id is not a valid ObjectId";
+
+  const appointmentList = await appointmentCollection.find({ garage_id: id }).toArray();
+  return appointmentList;
+}
+
 
 const createAppointment = async (
     user_id,
@@ -50,13 +74,16 @@ const createAppointment = async (
 
     const appointmentCollection = await appointments();
 
+    temp_user = getUserById(user_id);
+    user_name = temp_user.name;
 
     let new_appt = {
         user_id: user_id,
         garage_id: garage_id,
         date_time: date_time,
         service: service,
-        total_price: total_price
+        total_price: total_price,
+        user_name: user_name
       };
   
       const insertInfo = await appointmentCollection.insertOne(new_appt);
@@ -90,5 +117,7 @@ const deleteAppointment = async (apptId) => {
     createAppointment,
     deleteAppointment,
     getAllAppointments,
+    getAllAppointmentsByGarage,
+    getAllAppointmentsByUser,
   };
   

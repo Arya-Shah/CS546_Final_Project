@@ -4,7 +4,9 @@ const router = express.Router();
 const data = require('../data');
 const garagedata = data.garages;
 //const userData = data.users;
-const { createAppointment, deleteAppointment, getAllAppointments } = require('../data/appointments');
+const { ObjectId } = require('mongodb');
+const { createAppointment, deleteAppointment, getAllAppointments, getAllAppointmentsByGarage, getAllAppointmentsByUser } = require('../data/appointments');
+const { getGarageByOwner, getgarage } = require('../data/garages');
 
 let serviceType = ['pickuppart', 'maintainance', 'delivercar'];
 serviceType.sort();
@@ -21,14 +23,45 @@ router.get('/garage_list', async (req, res) => {
 });
 
 router
+  .route('/info/:id')
+  .get(async (req, res) => {
+    console.log(req.params);
+    let garage_id = req.params.id;
+    if (!garage_id) {
+      res.status(404).redirect('/');
+    } else {
+      if(!ObjectId.isValid(garage_id)){
+        res.status(404).redirect('/');
+      } else {
+        let garageTemp = await getgarage(garage_id);
+        console.log("GarageTemp: " + garageTemp);
+        let appointmentsTemp = '';
+        if(req.session.user_id) {
+          appointmentsTemp = await getAllAppointmentsByUser(req.session.user_id);
+        }
+        console.log("Appointments Temp: " + appointmentsTemp);
+        res.render('garage_info', {'title': 'Garage Info', 'appointments': appointmentsTemp, 'garage': garageTemp, 'cur_user': req.session.user_id });
+      }
+    }
+  });
+
+router
   .route('/management')
   .get(async (req, res) => {
     //code here for GET
-    // TODO: Get specific garage from user's page, load appts from that garage specifically
-    let appointmentsTemp = await getAllAppointments();
-    // TODO: Remove management visited b/c its just used for testing as an example
-    req.session.management_visited = "MANAGEMENT VISITED";
-    res.render('garage_management', {'title': 'Garage Management', 'appointments': appointmentsTemp})
+    if (!req.session.user_id) {
+      console.log('in redirect');
+      res.redirect('/');
+    } else {
+      let garageTemp = await getGarageByOwner(req.session.user_id);
+      if(!garageTemp) res.redirect('/');
+
+      console.log("Garage Temp:" + garageTemp);
+      // TODO: Get specific garage from user's page, load appts from that garage specifically
+      let appointmentsTemp = await getAllAppointmentsByGarage(garageTemp._id.toString());
+      console.log("Appointments Temp: " + appointmentsTemp);
+      res.render('garage_management', {'title': 'Garage Management', 'appointments': appointmentsTemp, 'garage': garageTemp});
+    }
   });
 
 router

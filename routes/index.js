@@ -7,10 +7,21 @@ const constructorMethod = (app) => {
     app.use("/garage", garageroutes);
     
     app.get('/login', (req, res) => {
-        res.render('login', {'title': 'Login'});
+		if (req.session.user_id) {
+			console.log('in redirect');
+			res.redirect('/');
+		  } else {
+			res.render('login', {'title': 'Login'});
+		  }
+        	
     })
 	app.get('/register', (req, res) => {
-        res.render('register', {'title': 'Register'});
+		if (req.session.user_id) {
+			console.log('in redirect');
+			res.redirect('/');
+		  } else {
+        	res.render('register', {'title': 'Register'});
+		  }
     })
 	app.get('/', (req, res) => {
         res.render('homepage', {'title': 'Homepage'})

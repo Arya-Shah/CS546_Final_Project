@@ -25,6 +25,9 @@
         {{!-- begin page content --}}
         <div id="site_content" class="col-10">
             <div class="row">
+                <h2>{{garage.name}}</h2>
+            </div>
+            <div class="row">
                 <div class="col-6">
                     <span>
                         Monthly Earnings
@@ -48,7 +51,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <span>
-                                    User: {{!-- TODO: ADD USER, query in backend to add a user_name field w/ search user by id function --}}
+                                    User: {{this.user_name}}
                                 </span>
                             </div>
                             <div class="row">
@@ -66,12 +69,6 @@
                 {{/each}}
             </div>
             <a href="/garage/create_appointment/"> Create Appointment +</a>
-            {{!-- for appointment in appointments --}}
-            {{!-- 
-            <div>
-
-            </div>
-             --}}
 
              <div class="row">
                 <h2>

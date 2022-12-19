@@ -86,7 +86,7 @@ router.route('/register').post(async (req, res) => {
         if (!passTest) throw "Password must have uppercase letter, digit, and special character."
   
         const registerCheck = await createUser(name.trim().toLowerCase(), emailToSubmit, password);
-        if (registerCheck.insertedUser == true) {
+        if (registerCheck) {
             console.log("redirecting to login?");
             res.redirect('/login'); 
         } else {

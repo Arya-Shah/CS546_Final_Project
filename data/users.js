@@ -45,10 +45,10 @@ const createUser = async (
     
     const userPass = {name: name.trim().toLowerCase(), email: emailToSubmit, password: hash}
     const insertInfo = await user_col.insertOne(userPass);
-    console.log('after insert');
     if (insertInfo.insertedCount === 0) throw 'Could not add user/pass combination';
-    console.log('after after insert');
-    return {insertedUser: true};
+    const newId = insertInfo.insertedId;
+
+    return newId.toString();
   };
 
   const checkUser = async (email, password) => { 

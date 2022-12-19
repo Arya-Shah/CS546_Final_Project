@@ -2,6 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const users = require("./users");
 const garages = mongoCollections.garages;
 const { ObjectId } = require('mongodb');
+const usersCol = mongoCollections.users;
 
 module.exports = {
   async getgarage(id) {
@@ -35,6 +36,21 @@ module.exports = {
     return garageList;
   },
 
+  async getGarageByOwner(owner_id) {
+    const garageCollection = await garages();
+
+    if (!owner_id) throw 'You must provide an id to search for';
+    if (typeof(owner_id) != 'string') throw 'Id must be a string.';
+    if (owner_id.trim().length == 0) throw "Id must not be empty string";
+  
+    if (!ObjectId.isValid(owner_id)) throw "Id is not a valid ObjectId";
+
+    const garage = await garageCollection.findOne({ownerid: owner_id.trim()});
+
+    return garage;
+  },
+
+
   async creategarage(name, location, phoneNumber, website, inventory, serviceOptions, ownerid) {
     if (!name || !location || !phoneNumber || !website || !serviceOptions)
       throw 'You must provide all valid inputs for your garage';
@@ -55,7 +71,7 @@ module.exports = {
     if (!Array.isArray(inventory)) 
       throw 'Inventory should be an array';
     else{
-      forEach((element) => {
+      inventory.forEach((element) => {
         if(!element.hasOwnProperty('Part') || !element.hasOwnProperty('Price') || !element.hasOwnProperty('Number'))
           throw 'Trying to insert wrong key. Please enter valid key'
         if(typeof element.Part !== 'string' || typeof element.Price !== 'number' || typeof element.Number !== 'number')
@@ -67,9 +83,8 @@ module.exports = {
         })
 
     }
-    
       
-    if (typeof serviceOptions !== 'object') 
+    if (typeof(serviceOptions) !== 'object') 
       throw 'Service options should be an object';
 
    
@@ -91,10 +106,10 @@ module.exports = {
     if(!ObjectId.isValid(ownerid))
       throw 'The ID is not a valid Object ID';
 
-    const userCollection = await users();
+    const userCollection = await usersCol();
     const validuser = await userCollection.findOne({ _id: ownerid})
 
-    if (validuser !==null)
+    if (validuser !== null)
       throw 'Owner id provided is not valid'
 
     if (samegarage !== null)
@@ -116,7 +131,7 @@ module.exports = {
 
     const newId = insertInfo.insertedId;
 
-    const garage = await newId.toString();
+    const garage = newId.toString();
     return garage;
   },
 
