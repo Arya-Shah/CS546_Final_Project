@@ -11,7 +11,7 @@
   color: #525252;
 }
 nav{
-  background: #1a1a1a;
+  background: #1c020c;
   width: 100%;
   padding: 10px 10%;
   display: flex;
@@ -63,7 +63,7 @@ nav ul li a{
   max-height: 400px ;
 }
 .sub-menu{
-  background: #fff;
+  background: rgb(249, 144, 212);
   padding: 20px;
   margin: 10px;
 
@@ -190,7 +190,7 @@ input {
 
 button[type=submit] {
   text-align: center;
-  background-color: #4CAF50;
+  background-color: #db599a;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
