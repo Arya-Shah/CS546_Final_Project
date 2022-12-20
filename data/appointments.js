@@ -32,6 +32,18 @@ const getAllAppointmentsByUser = async(id) => {
   return appointmentList;
 }
 
+const getAppointmentById = async(id) => {
+  const appointmentCollection = await appointments();
+
+  if (!id) throw "no id given";
+  if (typeof(id) != 'string') throw "id not string";
+  if (!ObjectId.isValid(id)) throw "Id is not a valid ObjectId";
+
+  let idPass = ObjectId(id);
+  const appointment = await appointmentCollection.findOne({ _id: idPass });
+  return appointment;
+}
+
 const getAllAppointmentsByGarage = async(id) => {
   const appointmentCollection = await appointments();
 
@@ -62,20 +74,25 @@ const getAllAppointmentsByUserAndGarage = async(user_id, garage_id) => {
 const createAppointment = async (
     user_id,
     garage_id,
-    date_time,
+    date,
+    time,
     service,
     total_price
 ) => {
     if (!user_id) throw "No user_id";
     if (!garage_id) throw "No garage_id";
-    if (!date_time) throw "No date_time";
+    if (!date) throw "No date";
+    if (!time) throw "No time";
     if (!service) throw "No service";
+
+    console.log("TIME:" + time);
 
     if (typeof(user_id) != 'string') throw "user_id not string";
     if (typeof(garage_id) != 'string') throw "garage_id not string";
-    if (typeof(date_time) != 'string') throw "date_time not string";
+    if (typeof(date) != 'string') throw "date_time not string";
+    if (typeof(time) != 'string') throw "date_time not string";
     if (typeof(service) != 'string') throw "service not string"
-    if (typeof(total_price) != 'number') throw "total_price not number"
+    if (typeof(total_price) != 'string') throw "total_price not string"
 
     if (!ObjectId.isValid(user_id)) throw "user id not valid objectid";
     if (!ObjectId.isValid(garage_id)) throw "garage id not valid objectid";
@@ -91,13 +108,17 @@ const createAppointment = async (
       throw "garage not found in DB";
     }
 
-    let test_date = new Date(date_time);
+    let test_date = new Date(date);
     if (!test_date.getTime()) throw "invalid Date string";
+
+    let timeRegex = /([01]?[0-9]|2[0-3]):[0-5][0-9]/;
+    if (!timeRegex.test(time)) throw "time not valid";
 
     if (service.trim().length == 0) throw "empty service str";
 
-    let price_regex = /^\d+(,\d{3})*(\.\d{1,2})?$/;
-    if(!price_regex.test(String(total_price))) throw "price invalid";
+    console.log(total_price);
+    let price_regex = /^[0-9]+(,[0-9]{3})*(\.[0-9]{1,2})?$/;
+    if(!price_regex.test(total_price)) throw "price invalid";
 
     const appointmentCollection = await appointments();
 
@@ -107,7 +128,8 @@ const createAppointment = async (
     let new_appt = {
         user_id: user_id,
         garage_id: garage_id,
-        date_time: date_time,
+        date: date,
+        time: time,
         service: service,
         total_price: total_price,
         user_name: user_name
@@ -135,7 +157,7 @@ const deleteAppointment = async (apptId) => {
     const appointmentCollection = await appointments();
     const deletionInfo = await appointmentCollection.deleteOne({_id: idPass});
     if (deletionInfo.deletedCount === 0) {
-      throw `Could not delete movie with id of ${movieId}`;
+      throw `Could not delete appointment with id of ${apptId}`;
     }
     return `Successful deletion of appointment`
   };
@@ -147,5 +169,6 @@ const deleteAppointment = async (apptId) => {
     getAllAppointmentsByUserAndGarage,
     getAllAppointmentsByGarage,
     getAllAppointmentsByUser,
+    getAppointmentById
   };
   

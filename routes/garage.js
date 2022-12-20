@@ -5,7 +5,7 @@ const data = require('../data');
 const garagedata = data.garages;
 //const userData = data.users;
 const { ObjectId } = require('mongodb');
-const { createAppointment, deleteAppointment, getAllAppointments, getAllAppointmentsByGarage, getAllAppointmentsByUser, getAllAppointmentsByUserAndGarage } = require('../data/appointments');
+const { createAppointment, deleteAppointment, getAllAppointments, getAllAppointmentsByGarage, getAllAppointmentsByUser, getAllAppointmentsByUserAndGarage, getAppointmentById } = require('../data/appointments');
 const { getGarageByOwner, getgarage } = require('../data/garages');
 
 let serviceType = ['pickuppart', 'maintainance', 'delivercar'];
@@ -19,7 +19,8 @@ router.get('/garage_list', async (req, res) => {
         'user': req.session.user,
         'title': 'All Garages',
         'garages': garages,
-        'user_email': req.session.email
+        'user_email': req.session.email,
+        'isOwner': req.session.isOwner
     });
 });
 
@@ -35,13 +36,12 @@ router
         res.status(404).redirect('/');
       } else {
         let garageTemp = await getgarage(garage_id);
-        console.log("GarageTemp: " + garageTemp);
         let appointmentsTemp = '';
         if(req.session.user_id) {
           appointmentsTemp = await getAllAppointmentsByUserAndGarage(req.session.user_id, garage_id);
         }
-        console.log("Appointments Temp: " + appointmentsTemp);
-        res.render('garage_info', {'title': 'Garage Info', 'appointments': appointmentsTemp, 'garage': garageTemp, 'cur_user': req.session.user_id, 'user_email': req.session.email });
+        let inventoryTemp = garageTemp.inventory;
+        res.render('garage_info', {'title': 'Garage Info', 'isOwner': req.session.isOwner, 'appointments': appointmentsTemp, 'garage': garageTemp, 'cur_user': req.session.user_id, 'user_email': req.session.email, 'inventory': inventoryTemp});
       }
     }
   });
@@ -50,7 +50,7 @@ router
   .route('/management')
   .get(async (req, res) => {
     //code here for GET
-    if (!req.session.user_id) {
+    if (!req.session.isOwner) {
       console.log('in redirect');
       res.redirect('/');
     } else {
@@ -59,8 +59,14 @@ router
 
       console.log("Garage Temp:" + garageTemp);
       let appointmentsTemp = await getAllAppointmentsByGarage(garageTemp._id.toString());
+      let inventoryTemp = garageTemp.inventory;
       console.log("Appointments Temp: " + appointmentsTemp);
-      res.render('garage_management', {'title': 'Garage Management', 'appointments': appointmentsTemp, 'garage': garageTemp, 'user_email': req.session.email});
+      let monthly_earnings = 0;
+      let num_appointments = appointmentsTemp.length;
+      for (let i = 0; i < appointmentsTemp.length; i++){
+        monthly_earnings += Number(appointmentsTemp[i].total_price);
+      }
+      res.render('garage_management', {'title': 'Garage Management', 'isOwner': req.session.isOwner, 'appointments': appointmentsTemp, 'garage': garageTemp, 'user_email': req.session.email, 'inventory': inventoryTemp, 'monthly_earnings': monthly_earnings, 'num_appointments': num_appointments});
     }
   });
 
@@ -80,25 +86,65 @@ router
         } else {
           let garageTemp = await getgarage(garage_id);
           let services = garageTemp.serviceOptions;
-          res.render('create_appointment', {'title': 'Create Appointment', 'garage': garageTemp, 'services': services, 'cur_user': req.session.user_id, 'user_email': req.session.email });
+          res.render('create_appointment', {'title': 'Create Appointment', 'isOwner': req.session.isOwner, 'garage': garageTemp, 'services': services, 'cur_user': req.session.user_id, 'user_email': req.session.email });
         }
       }
     }
   })
   .post(async (req, res) => {
+      try {
+          console.log(req.body)
+          if (!req.session.user) {
+            res.status(403).redirect('/');
+          } else {
+            console.log(req.params);
+            let spaghetti = await createAppointment(req.session.user_id, req.params.garage_id, req.body.dateInput, req.body.timeInput, req.body.serviceInput, req.body.priceInput);
+            console.log(spaghetti);
+            res.redirect('/garage/info/' + req.params.garage_id);
+          }
+      }
+      catch (e) {
+          console.log(e);
+      }
+    });
+
+router
+  .route('/delete_appointment/:appointment_id')
+  .post(async (req, res) => {
+    console.log("IN DELETE");
     try {
-        console.log(req.body)
-        if (!req.session.user) {
-          res.status(403).redirect('/');
+      if (!req.session.isOwner) {
+        res.status(403).redirect('/');
+      } else {
+        console.log(req.params);
+        let appointmentTemp = await getAppointmentById(req.params.appointment_id);
+        if (!appointmentTemp) {
+          console.log(" no appointment temp");
+          res.status(400).redirect('/');
         } else {
-          let spaghetti = await createAppointment(req.session.user_id, req.params.garage_id, req.body.dateTimeInput, req.body.serviceInput, 3.21);
-          console.log(spaghetti);
-          res.redirect('/garage/info/' + req.params.garage_id);
+          let tempGarage = await getgarage(appointmentTemp.garage_id);
+          if (!tempGarage) {
+            console.log("no temp garage");
+            res.status(403).redirect('/');
+          } else {
+            if (tempGarage.ownerid != req.session.user_id) {
+              console.log("owner id not same as session userid");
+              res.status(403).redirect('/');
+            } else {
+              console.log("before delete");
+              let deleteAppt = await deleteAppointment(req.params.appointment_id);
+              console.log("after delete");
+              res.redirect('/garage/management');
+            }
+          }
+          
         }
+      }
     }
     catch (e) {
-        console.log(e);
+      console.log(e);
     }
-    });
+  });
+
 
 module.exports = router;

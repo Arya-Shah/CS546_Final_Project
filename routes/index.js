@@ -24,7 +24,7 @@ const constructorMethod = (app) => {
 		  }
     })
 	app.get('/', (req, res) => {
-        res.render('homepage', {'title': 'Homepage', 'user_email': req.session.email, 'logged_in': req.session.user})
+        res.render('homepage', {'title': 'Homepage', 'isOwner': req.session.isOwner, 'user_email': req.session.email, 'logged_in': req.session.user})
     });
 
     app.use('*', (req, res) => {
