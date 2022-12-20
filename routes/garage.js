@@ -20,7 +20,8 @@ router.get('/garage_list', async (req, res) => {
         'title': 'All Garages',
         'garages': garages,
         'user_email': req.session.email,
-        'isOwner': req.session.isOwner
+        'isOwner': req.session.isOwner,
+        'logged_in': req.session.user
     });
 });
 
@@ -41,7 +42,7 @@ router
           appointmentsTemp = await getAllAppointmentsByUserAndGarage(req.session.user_id, garage_id);
         }
         let inventoryTemp = garageTemp.inventory;
-        res.render('garage_info', {'title': 'Garage Info', 'isOwner': req.session.isOwner, 'appointments': appointmentsTemp, 'garage': garageTemp, 'cur_user': req.session.user_id, 'user_email': req.session.email, 'inventory': inventoryTemp});
+        res.render('garage_info', {'title': 'Garage Info', 'isOwner': req.session.isOwner, 'logged_in': req.session.user, 'appointments': appointmentsTemp, 'garage': garageTemp, 'cur_user': req.session.user_id, 'user_email': req.session.email, 'inventory': inventoryTemp});
       }
     }
   });
@@ -66,7 +67,7 @@ router
       for (let i = 0; i < appointmentsTemp.length; i++){
         monthly_earnings += Number(appointmentsTemp[i].total_price);
       }
-      res.render('garage_management', {'title': 'Garage Management', 'isOwner': req.session.isOwner, 'appointments': appointmentsTemp, 'garage': garageTemp, 'user_email': req.session.email, 'inventory': inventoryTemp, 'monthly_earnings': monthly_earnings, 'num_appointments': num_appointments});
+      res.render('garage_management', {'title': 'Garage Management', 'isOwner': req.session.isOwner, 'logged_in': req.session.user, 'appointments': appointmentsTemp, 'garage': garageTemp, 'user_email': req.session.email, 'inventory': inventoryTemp, 'monthly_earnings': monthly_earnings, 'num_appointments': num_appointments});
     }
   });
 
@@ -86,7 +87,7 @@ router
         } else {
           let garageTemp = await getgarage(garage_id);
           let services = garageTemp.serviceOptions;
-          res.render('create_appointment', {'title': 'Create Appointment', 'isOwner': req.session.isOwner, 'garage': garageTemp, 'services': services, 'cur_user': req.session.user_id, 'user_email': req.session.email });
+          res.render('create_appointment', {'title': 'Create Appointment', 'isOwner': req.session.isOwner, 'logged_in': req.session.user, 'garage': garageTemp, 'services': services, 'cur_user': req.session.user_id, 'user_email': req.session.email });
         }
       }
     }

@@ -3,21 +3,28 @@
         {{!-- begin sidebar --}}
         <div id="site_sidebar" class="col-2">
             <div id="sidebar_title_row" class="row">
-                <span id="sidebar_title"> Sidebar Title </span>
+                <span id="sidebar_title"> Home </span>
             </div>
             {{!-- begin sidebar links --}}
             <div class="row sidebar_link_row">
-                <a class="sidebar_link_btn" href="/example_page/" > Example Page </a>
+                <a class="sidebar_link_btn" href="/"> Homepage </a>
+            </div>
+            {{#unless logged_in}}
+                <div class="row sidebar_link_row">
+                    <a class="sidebar_link_btn" href="/login">  Login/Register </a>
+                </div>
+            {{/unless}}
+            <div class="row sidebar_link_row">
+                <a class="sidebar_link_btn" href="/garage/garage_list"> Garage List </a>
             </div>
             <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Example Btn </span>
+                <a class="sidebar_link_btn"> User Profile </a>
             </div>
-            <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Example Btn </span>
-            </div>
-            <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Example Btn </span>
-            </div>
+            {{#if isOwner}}
+                <div class="row sidebar_link_row">
+                    <a class="sidebar_link_btn active" href="/garage/management">Garage Management</a>
+                </div>
+            {{/if}}
             {{!-- end sidebar links --}}
         </div>
         {{!-- end sidebar --}}

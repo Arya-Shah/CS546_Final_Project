@@ -8,14 +8,24 @@
             </div>
             {{!-- begin sidebar links --}}
             <div class="row sidebar_link_row">
-                <a class="sidebar_link_btn"  >  Login or Sign Up </a>
+                <a class="sidebar_link_btn" href="/"> Homepage </a>
+            </div>
+            {{#unless logged_in}}
+                <div class="row sidebar_link_row">
+                    <a class="sidebar_link_btn" href="/login">  Login/Register </a>
+                </div>
+            {{/unless}}
+            <div class="row sidebar_link_row">
+                <a class="sidebar_link_btn active" href="/garage/garage_list"> Garage List </a>
             </div>
             <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" href="routes/garage"> Search from garages List </span>
+                <a class="sidebar_link_btn"> User Profile </a>
             </div>
-            <div class="row sidebar_link_row">
-                <span class="sidebar_link_btn" > Book Appointment </span>
-            </div>
+            {{#if isOwner}}
+                <div class="row sidebar_link_row">
+                    <a class="sidebar_link_btn" href="/garage/management">Garage Management</a>
+                </div>
+            {{/if}}
             {{!-- end sidebar links --}}
         </div>
         {{!-- end sidebar --}}

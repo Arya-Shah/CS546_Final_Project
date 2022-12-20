@@ -48,12 +48,12 @@ router
             }
             res.redirect('/');
         } else {
-            res.render('login', {'title': 'Login', 'isOwner': req.session.isOwner, 'error': "Invalid email pass combo", 'user_email': req.session.email,})
+            res.render('login', {'title': 'Login', 'isOwner': req.session.isOwner, 'logged_in': req.session.user, 'error': "Invalid email pass combo", 'user_email': req.session.email,})
         }
     }
     catch (e) {
         console.log(e);
-        res.status(400).render('login', {'title': 'Login', 'isOwner': req.session.isOwner, 'error': e});
+        res.status(400).render('login', {'title': 'Login', 'isOwner': req.session.isOwner, 'logged_in': req.session.user, 'error': e});
     }
   })
 
@@ -99,7 +99,7 @@ router.route('/register').post(async (req, res) => {
         }
       }
       catch (e) {
-        res.status(400).render('register', {'title': 'Login', 'isOwner': req.session.isOwner, 'error': e});
+        res.status(400).render('register', {'title': 'Login', 'isOwner': req.session.isOwner, 'logged_in': req.session.user, 'error': e});
       }
 })
 
