@@ -49,7 +49,7 @@
                     </h2>
                 </div>
                 {{#if appointments}}
-                    <div class="col-12">
+                    <div class="col-12 px-0">
                         {{#each appointments}}
                             <div class="row py-3 px-2 my-1 appt-box">
                                 <div class="col-12">
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="row">
                                         <span>
-                                            Appointment: {{this.date_time}} for the service: {{this.service}}.
+                                            Appointment: {{this.date}} at {{this.time}} for the service: {{this.service}}.
                                         </span>
                                     </div>
                                     <div class="row">
@@ -85,12 +85,19 @@
                     Inventory
                 </h2>
              </div>
-
-             <div class="row">
-                <h2>
-                    
-                </h2>
-             </div>
+             {{#each inventory}}
+                <div class="row py-3 px-2 my-1 appt-box">
+                    {{#each this}}
+                    <div class="col-12">
+                        <div class="row">
+                            <span>
+                                {{@key}}: {{this}}
+                            </span>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            {{/each}}
         </div>
         {{!-- end page content --}}
     </div>

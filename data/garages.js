@@ -74,7 +74,7 @@ module.exports = {
       inventory.forEach((element) => {
         if(!element.hasOwnProperty('Part') || !element.hasOwnProperty('Price') || !element.hasOwnProperty('Number'))
           throw 'Trying to insert wrong key. Please enter valid key'
-        if(typeof element.Part !== 'string' || typeof element.Price !== 'number' || typeof element.Number !== 'number')
+        if(typeof element.Part !== 'string' || typeof element.Price !== 'string' || typeof element.Number !== 'number')
           throw 'The object keys should be boolean. Please check'
       
         const x = element.Price
@@ -91,8 +91,10 @@ module.exports = {
     if(!serviceOptions.hasOwnProperty('pickuppart') || !serviceOptions.hasOwnProperty('maintainance') || !serviceOptions.hasOwnProperty('delivercar'))
       throw 'Trying to insert wrong key. Please enter valid key'
 
-    if(typeof serviceOptions.pickuppart !== 'boolean' || typeof serviceOptions.maintainance !== 'boolean' || typeof serviceOptions.delivercar !== 'boolean')
-      throw 'The object keys should be boolean. Please check'
+    if (typeof(serviceOptions.pickuppart) !== 'boolean' && !price_regex.test(serviceOptions.pickuppart)) throw 'pickuppart not valid';
+    if (typeof(serviceOptions.maintainance) !== 'boolean' && !price_regex.test(serviceOptions.maintainance)) throw 'maintainance not valid';
+    if (typeof(serviceOptions.delivercar) !== 'boolean' && !price_regex.test(serviceOptions.delivercar)) throw 'delivercar not valid';
+
 
     const garageCollection = await garages();
     const samegarage = await garageCollection.findOne({ name: name, location: location, phoneNumber: phoneNumber });

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const data = require('../data');
+const { getGarageByOwner } = require('../data/garages');
 const { checkUser, createUser, getUserByEmail } = require('../data/users');
 const garageData = data.get;
 
@@ -41,14 +42,18 @@ router
             req.session.user = true
             req.session.email = tempUser.email;
             req.session.user_id = tempUser._id;
+            const ownerTest = await getGarageByOwner(tempUser._id.toString());
+            if (ownerTest) {
+                req.session.isOwner = true;
+            }
             res.redirect('/');
         } else {
-            res.render('login', {'title': 'Login', 'error': "Invalid email pass combo", 'user_email': req.session.email,})
+            res.render('login', {'title': 'Login', 'isOwner': req.session.isOwner, 'error': "Invalid email pass combo", 'user_email': req.session.email,})
         }
     }
     catch (e) {
         console.log(e);
-        res.status(400).render('login', {'title': 'Login', 'error': e});
+        res.status(400).render('login', {'title': 'Login', 'isOwner': req.session.isOwner, 'error': e});
     }
   })
 
@@ -94,7 +99,7 @@ router.route('/register').post(async (req, res) => {
         }
       }
       catch (e) {
-        res.status(400).render('register', {'title': 'Login', 'error': e});
+        res.status(400).render('register', {'title': 'Login', 'isOwner': req.session.isOwner, 'error': e});
       }
 })
 

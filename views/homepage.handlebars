@@ -21,6 +21,11 @@
             <div class="row sidebar_link_row">
                 <a class="sidebar_link_btn"> User Profile </a>
             </div>
+            {{#if isOwner}}
+                <div class="row sidebar_link_row">
+                    <a class="sidebar_link_btn" href="/garage/management">Garage Management</a>
+                </div>
+            {{/if}}
             {{!-- end sidebar links --}}
         </div>
         {{!-- end sidebar --}}
